@@ -45,10 +45,10 @@ class App extends React.Component {
     this.setState({ polls, selectedPoll: {} });
   };
 
-  selectPoll = pollId => {
-    const poll = this.state.polls.find(p => p.id === pollId);
-    this.setState({selectedPoll: poll});
-  }
+  selectPoll = (pollId) => {
+    const poll = this.state.polls.find((p) => p.id === pollId);
+    this.setState({ selectedPoll: poll });
+  };
 
   render() {
     return (
