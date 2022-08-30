@@ -37,7 +37,7 @@ class Sidebar extends React.Component {
         >
           <ModalHeader toggle={this.toggleModal}>Create A New Poll</ModalHeader>
           <ModalBody>
-            <PollForm submit={this.props.addNewPoll}/>
+            <PollForm submit={this.props.addNewPoll} />
           </ModalBody>
         </Modal>
       </div>

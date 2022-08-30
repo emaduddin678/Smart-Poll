@@ -1,6 +1,5 @@
 import React from "react";
 import shortid from "shortid";
-
 import MyForm from "./form";
 
 const defaultOptions = [
@@ -36,7 +35,7 @@ class PollForm extends React.Component {
         value: "",
         vote: 0,
       });
-      this.setState({ options });
+      this.setState({  options });
     } else {
       alert("You can create max 5 options");
     }

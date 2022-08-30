@@ -29,13 +29,13 @@ class App extends React.Component {
     });
   };
 
-  updatePoll = (updatedpoll) => {
+  updatePoll = (updatedPoll) => {
     const polls = [...this.state.polls];
-    const poll = polls.find((p) => p.id === updatedpoll.id);
+    const poll = polls.find((p) => p.id === updatedPoll.id);
 
-    poll.title = updatedpoll.title;
-    poll.description = updatedpoll.description;
-    poll.options = updatedpoll.opinions;
+    poll.title = updatedPoll.title;
+    poll.description = updatedPoll.description;
+    poll.options = updatedPoll.opinions;
 
     this.setState({ polls });
   };
@@ -50,6 +50,23 @@ class App extends React.Component {
     this.setState({ selectedPoll: poll });
   };
 
+  getOpinion = (response) => {
+    const { polls } = this.state;
+    const poll = polls.find((p) => p.id === response.pollId);
+    const option = poll.opinions.find((o) => o.id === response.selectedOption);
+
+    poll.totalVote++;
+    option.vote++;
+    const opinion = {
+      id: shortid.generate(),
+      name: response.name,
+      selectedOption: response.selectedOption,
+    };
+
+    poll.opinions.push(opinion);
+    this.setState({ polls });
+  };
+
   handleSearch = (searchTerm) => {};
 
   render() {
@@ -59,14 +76,19 @@ class App extends React.Component {
           <Col md={5}>
             <Sidebar
               polls={this.state.polls}
-              searchTerm={this.state.searchTerm} 
-              handleSearch={this.handleSearch} 
+              searchTerm={this.state.searchTerm}
+              handleSearch={this.handleSearch}
               selectPoll={this.selectPoll}
               addNewPoll={this.addNewPoll}
             />
           </Col>
           <Col md={6}>
-            <MainContent />
+            <MainContent
+              poll={this.state.selectedPoll}
+              getOpinion={this.getOpinion}
+              updatePoll={this.updatePoll}
+              deletePoll={this.deletePoll}
+            />
           </Col>
         </Row>
       </Container>
