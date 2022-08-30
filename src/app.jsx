@@ -56,7 +56,7 @@ class App extends React.Component {
     return (
       <Container className="my-5">
         <Row>
-          <Col md={4}>
+          <Col md={5}>
             <Sidebar
               polls={this.state.polls}
               searchTerm={this.state.searchTerm} 
@@ -65,7 +65,7 @@ class App extends React.Component {
               addNewPoll={this.addNewPoll}
             />
           </Col>
-          <Col md={8}>
+          <Col md={6}>
             <MainContent />
           </Col>
         </Row>

@@ -47,16 +47,16 @@ const MyForm = ({
       {errors.description && <FormFeedback>{errors.description}</FormFeedback>}
     </FormGroup>
     <FormGroup>
-      <Label>
-        Enter Options
+      <Label className="py-1">
+        <h5 className="d-inline">Enter Options</h5>
         <span
           style={{
-            marginLeft: "30px",
+            marginLeft: "20px",
             background: "green",
             color: "white",
-            padding: "5px",
             borderRadius: "5px",
             cursor: "pointer",
+            padding: '5px 15px'
           }}
           onClick={createOption}
         >
@@ -65,7 +65,8 @@ const MyForm = ({
       </Label>
       {options.map((opt, index) => (
         <div key={opt.id} className="d-flex my-2">
-          <Input
+          <Input 
+            className="me-2"
             value={opt.value}
             onChange={(e) => handleOptionChange(e, index)}
             invalid={errors.options && errors.options[index] ? true : false}
@@ -73,7 +74,7 @@ const MyForm = ({
           <Button
             color="danger"
             disabled={options.length <= 2}
-            className="me-2"
+            className="ms-2"
             onClick={() => deleteOption(index)}
           >
             Delete
@@ -82,7 +83,7 @@ const MyForm = ({
       ))}
     </FormGroup>
     <Button color="primary" type="submit">
-        {buttonValue}
+      {buttonValue}
     </Button>
   </Form>
 );
