@@ -8,14 +8,14 @@ import POLLS from "./data/polls";
 
 class App extends React.Component {
   state = {
-    polls: [],
+    polls: POLLS,
     selectedPoll: {},
     searchTerm: "",
   };
 
-  componentDidMount() {
-    this.setState({ polls: POLLS });
-  }
+  // componentDidMount() {
+  //   this.setState({ polls: POLLS });
+  // }
 
   addNewPoll = (poll) => {
     poll.id = shortid.generate();
@@ -27,6 +27,9 @@ class App extends React.Component {
       // polls: [...this.state.polls, poll],
       polls: this.state.polls.concat(poll),
     });
+
+
+    
   };
 
   updatePoll = (updatedPoll) => {
@@ -42,12 +45,20 @@ class App extends React.Component {
 
   deletePoll = (pollId) => {
     const polls = this.state.polls.filter((p) => p.id !== pollId);
+    // console.log(this.state.selectedPoll);
+    // console.log(pollId);
     this.setState({ polls, selectedPoll: {} });
+    // console.log(this.state.selectedPoll);
   };
 
   selectPoll = (pollId) => {
-    const poll = this.state.polls.find((p) => p.id === pollId);
+    const poll = this.state.polls.find(p => p.id === pollId);
+    // console.log(poll);
+    // console.log(pollId);
+    // console.log(this.state.selectedPoll);
+
     this.setState({ selectedPoll: poll });
+    // console.log(this.state.selectedPoll);
   };
 
   getOpinion = (response) => {
@@ -64,9 +75,9 @@ class App extends React.Component {
     };
 
     poll.opinions.push(opinion);
-    this.setState({ polls });
+    this.setState({ polls: polls });
   };
-
+  
   handleSearch = (searchTerm) => {};
 
   render() {
@@ -91,6 +102,7 @@ class App extends React.Component {
             />
           </Col>
         </Row>
+        <p> {console.log(this.state.polls.length)}</p>
       </Container>
     );
   }

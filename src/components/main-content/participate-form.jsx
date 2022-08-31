@@ -76,7 +76,7 @@ class ParticipationForm extends React.Component {
             Delete
           </Button>
         </div>
-        {this.props.poll.options.map((opt) => (
+        {this.props.poll.option.map((opt) => (
           <FormGroup className="my-2" key={opt.id}>
             <Label className="d-flex">
               <Input
