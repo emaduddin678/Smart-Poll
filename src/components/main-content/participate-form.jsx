@@ -1,5 +1,12 @@
 import React from "react";
-import { Button, Form, FormFeedback, FormGroup, Input, Label } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+} from "reactstrap";
 
 class ParticipationForm extends React.Component {
   state = {
@@ -16,8 +23,8 @@ class ParticipationForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
     const { errors, isValid } = this.validate();
+
     if (isValid) {
       this.props.getOpinion({
         pollId: this.props.poll.id,
@@ -60,18 +67,18 @@ class ParticipationForm extends React.Component {
         <div className="d-flex">
           <h4>Options</h4>
           <Button
-            className="me-auto"
-            color="warning"
             type="button"
+            className="ms-auto"
+            color="warning"
             onClick={this.props.toggleModal}
           >
             Edit
           </Button>
           <Button
-            className="me-2"
-            color="warning"
             type="button"
-            onClick={this.props.deletePoll(this.props.poll.id)}
+            className="ms-2"
+            // color="warning"
+            onClick={() => this.props.deletePoll(this.props.poll.id)}
           >
             Delete
           </Button>
@@ -82,10 +89,11 @@ class ParticipationForm extends React.Component {
               <Input
                 type="radio"
                 id={opt.id}
-                name="selectOption"
+                name="selectedOption"
                 value={opt.id}
                 onChange={this.handleChange}
-                invalid={this.state.selectedOption ? true : false}
+                className="me-1"
+                invalid={this.state.errors.selectedOption ? true : false}
               />
               {opt.value}
               <span
@@ -95,18 +103,18 @@ class ParticipationForm extends React.Component {
                   color: "white",
                   borderRadius: "5px",
                 }}
-                className="me-auto"
+                className="ms-auto"
               >
                 {opt.vote}
               </span>
               <span
                 style={{
-                  padding: "5px 20px",
+                  padding: "5px 25px",
                   background: "orange",
                   color: "white",
                   borderRadius: "5px",
                 }}
-                className="me-2"
+                className="ms-2"
               >
                 {this.props.poll.totalVote > 0
                   ? ((100 * opt.vote) / this.props.poll.totalVote).toFixed(2)
@@ -125,14 +133,16 @@ class ParticipationForm extends React.Component {
             onChange={this.handleChange}
             invalid={this.state.errors.name ? true : false}
           />
-          {this.state.errors.name && <FormFeedback>{this.state.errors.name}</FormFeedback>}
-                    
+          {this.state.errors.name && (
+            <FormFeedback>{this.state.errors.name}</FormFeedback>
+          )}
         </FormGroup>
-        <Button type="submit" color="primary">Submit Your Opinion</Button>
+        <Button type="submit" >
+          Submit Your Opinion
+        </Button>
       </Form>
     );
   }
 }
-
 
 export default ParticipationForm;

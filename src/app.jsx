@@ -8,14 +8,14 @@ import POLLS from "./data/polls";
 
 class App extends React.Component {
   state = {
-    polls: POLLS,
+    polls: [],
     selectedPoll: {},
     searchTerm: "",
   };
 
-  // componentDidMount() {
-  //   this.setState({ polls: POLLS });
-  // }
+  componentDidMount() {
+    this.setState({ polls: POLLS });
+  }
 
   addNewPoll = (poll) => {
     poll.id = shortid.generate();
@@ -75,7 +75,7 @@ class App extends React.Component {
     };
 
     poll.opinions.push(opinion);
-    this.setState({ polls: polls });
+    this.setState({ polls });
   };
   
   handleSearch = (searchTerm) => {};
@@ -84,7 +84,7 @@ class App extends React.Component {
     return (
       <Container className="my-5">
         <Row>
-          <Col md={5}>
+          <Col md={4}>
             <Sidebar
               polls={this.state.polls}
               searchTerm={this.state.searchTerm}
@@ -93,7 +93,7 @@ class App extends React.Component {
               addNewPoll={this.addNewPoll}
             />
           </Col>
-          <Col md={6}>
+          <Col md={8}>
             <MainContent
               poll={this.state.selectedPoll}
               getOpinion={this.getOpinion}
@@ -102,7 +102,8 @@ class App extends React.Component {
             />
           </Col>
         </Row>
-        <p> {console.log(this.state.polls.length)}</p>
+        {/* <p> {console.log(this.state.polls.length)}</p>
+        <p> {(this.state.polls.length)}</p> */}
       </Container>
     );
   }

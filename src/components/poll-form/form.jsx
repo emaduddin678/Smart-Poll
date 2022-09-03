@@ -56,7 +56,7 @@ const MyForm = ({
             color: "white",
             borderRadius: "5px",
             cursor: "pointer",
-            padding: '5px 15px'
+            padding: "5px 15px",
           }}
           onClick={createOption}
         >
@@ -65,7 +65,7 @@ const MyForm = ({
       </Label>
       {options.map((opt, index) => (
         <div key={opt.id} className="d-flex my-2">
-          <Input 
+          <Input
             className="me-2"
             value={opt.value}
             onChange={(e) => handleOptionChange(e, index)}

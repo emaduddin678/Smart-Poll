@@ -12,7 +12,7 @@ class PollForm extends React.Component {
     title: "",
     description: "",
     options: defaultOptions,
-    errors: {}
+    errors: {},
   };
 
   handleChange = (event) => {
@@ -21,8 +21,8 @@ class PollForm extends React.Component {
     });
   };
 
-  handlOptionChange = (event, index) => {
-    const { options } = this.state;
+  handleOptionChange = (event, index) => {
+    const options = [...this.state.options];
     options[index].value = event.target.value;
     this.setState({ options });
   };
@@ -35,7 +35,7 @@ class PollForm extends React.Component {
         value: "",
         vote: 0,
       });
-      this.setState({  options });
+      this.setState({ options });
     } else {
       alert("You can create max 5 options");
     }
@@ -96,6 +96,7 @@ class PollForm extends React.Component {
     options.forEach((opt, index) => {
       if (!opt.value) {
         optionErrors[index] = "Option Text Empty";
+        // optionErrors.push("Option Text Empty");
       } else if (opt.value.length > 100) {
         optionErrors[index] = "Option Text Too Long";
       }
@@ -114,18 +115,21 @@ class PollForm extends React.Component {
   render() {
     const { title, description, options, errors } = this.state;
 
-    return <MyForm title={title} 
-    description={description} 
-    options= {options} 
-    buttonValue={this.props.buttonValue || "Create Poll"}
-    errors={errors} 
-    handleChange={this.handleChange}
-    handleOptionChange={this.handlOptionChange}
-    createOption={this.createOption}
-    deleteOption={this.deleteOption}
-    handleSubmit={this.handleSubmit}
-    />;
+    return (
+      <MyForm
+        title={title}
+        description={description}
+        options={options}
+        buttonValue={this.props.buttonValue || "Create Poll"}
+        errors={errors}
+        handleChange={this.handleChange}
+        handleOptionChange={this.handleOptionChange}
+        createOption={this.createOption}
+        deleteOption={this.deleteOption}
+        handleSubmit={this.handleSubmit}
+      />
+    );
   }
-};
+}
 
 export default PollForm;

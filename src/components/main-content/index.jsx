@@ -1,7 +1,10 @@
 import React from "react";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import ParticipationForm from "./participate-form";
+// import ParticipationForm from "./participate-form";
 import PollForm from "../poll-form";
+import ParticipationForm from "./participate-form";
+
+
 
 class MainContent extends React.Component {
   state = {
@@ -13,9 +16,11 @@ class MainContent extends React.Component {
       openModal: !this.state.openModal,
     });
   };
-
+  
   render() {
-    if (Object.keys(this.props.poll).length === 0) {
+    const { poll, getOpinion, updatePoll, deletePoll } = this.props;
+    
+    if (Object.keys(poll).length === 0) {
       return (
         <div>
           <h3>Welcome to My Application</h3>
@@ -28,38 +33,75 @@ class MainContent extends React.Component {
         </div>
       );
     }
-
-    const { poll, getOpinion, updatePoll, deletePoll } = this.props;
     return (
       <div>
         <h3>{poll.title}</h3>
         <p>{poll.description}</p>
         <br />
-        <ParticipationForm 
-        poll={poll} 
-        getOpinion={getOpinion} 
-        toggleModal={this.toggleModal} 
-        deletePoll= {deletePoll}
-        />
-        <Modal 
-            isOpen={this.state.openModal}
-            toggle={this.toggleModal}
-            unmountOnClose={true}
+        <ParticipationForm
+          poll={poll}
+          getOpinion={getOpinion}
+          toggleModal={this.toggleModal}
+          deletePoll={deletePoll}
+        /> 
+
+
+
+
+        <Modal
+          isOpen={this.state.openModal}
+          toggle={this.toggleModal}
+          unmountOnClose={true}
         >
-            <ModalHeader toggle={this.toggleModal}>
-                Update Modal
-            </ModalHeader>
-            <ModalBody>
-                <PollForm 
-                    poll={poll}
-                    isUpdate={true}
-                    submit={updatePoll} 
-                    buttonValue='Update Poll'
-                />
-            </ModalBody>
+          <ModalHeader toggle={this.toggleModal}>Update Poll</ModalHeader>
+          <ModalBody>
+            <PollForm
+              poll={poll}
+              isUpdate={true}
+              submit={updatePoll}
+              buttonValue="Update Poll"
+            />
+          </ModalBody>
         </Modal>
+
+
+
+
+        {/* <h1>Hello World!</h1>
+        <p>{Object.keys(poll).length > 0 ? "true" : "false"}</p> */}
       </div>
     );
+      
+      
+    //   return (
+    //   <div>
+    //     {/* {console.log(poll.length)} */}
+    //     <h3>{poll.title}</h3>
+    //     <p>{poll.description}</p>
+    //     <br />
+    //     <ParticipationForm
+    //       poll={poll}
+    //       getOpinion={getOpinion}
+    //       toggleModal={this.toggleModal}
+    //       deletePoll={deletePoll}
+    //     />
+    //     <Modal
+    //       isOpen={this.state.openModal}
+    //       toggle={this.toggleModal}
+    //       unmountOnClose={true}
+    //     >
+    //       <ModalHeader toggle={this.toggleModal}>Update Modal</ModalHeader>
+    //       <ModalBody>
+    //         <PollForm
+    //           poll={poll}
+    //           isUpdate={true}
+    //           submit={updatePoll}
+    //           buttonValue="Update Poll"
+    //         />
+    //       </ModalBody>
+    //     </Modal>
+    //   </div>
+    // );
   }
 }
 
