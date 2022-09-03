@@ -15,6 +15,18 @@ class PollForm extends React.Component {
     errors: {},
   };
 
+  componentDidMount() {
+    const {poll} = this.props;
+    if(poll && Object.keys(poll).length > 0) {
+      this.setState({
+        title: poll.title,
+        description: poll.description,
+        options: poll.options
+      });
+    }
+  }
+
+
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -57,18 +69,27 @@ class PollForm extends React.Component {
 
     if (isValid) {
       const { title, description, options } = this.state;
-      this.props.submit({
+      const poll = {
         title,
         description,
         options,
-      });
-      event.target.reset();
-      this.setState({
-        title: "",
-        description: "",
-        options: defaultOptions,
-        errors: {},
-      });
+      };
+      
+      if(this.props.isUpdate) {
+        poll.id = this.props.poll.id;
+        this.props.submit(poll);
+        alert("Updated Successfully")
+      }else {
+        this.props.submit(poll);
+        event.target.reset();
+        this.setState({
+          title: "",
+          description: "",
+          options: defaultOptions,
+          errors: {},
+        });
+      }
+      
     } else {
       this.setState({ errors });
     }

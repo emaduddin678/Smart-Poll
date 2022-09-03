@@ -44,10 +44,6 @@ class MainContent extends React.Component {
           toggleModal={this.toggleModal}
           deletePoll={deletePoll}
         /> 
-
-
-
-
         <Modal
           isOpen={this.state.openModal}
           toggle={this.toggleModal}

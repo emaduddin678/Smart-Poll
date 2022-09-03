@@ -10,7 +10,7 @@ class App extends React.Component {
   state = {
     polls: [],
     selectedPoll: {},
-    searchTerm: "",
+    searchTerm: ""
   };
 
   componentDidMount() {
@@ -27,9 +27,6 @@ class App extends React.Component {
       // polls: [...this.state.polls, poll],
       polls: this.state.polls.concat(poll),
     });
-
-
-    
   };
 
   updatePoll = (updatedPoll) => {
@@ -38,7 +35,7 @@ class App extends React.Component {
 
     poll.title = updatedPoll.title;
     poll.description = updatedPoll.description;
-    poll.options = updatedPoll.opinions;
+    poll.options = updatedPoll.options;
 
     this.setState({ polls });
   };
@@ -52,7 +49,7 @@ class App extends React.Component {
   };
 
   selectPoll = (pollId) => {
-    const poll = this.state.polls.find(p => p.id === pollId);
+    const poll = this.state.polls.find((p) => p.id === pollId);
     // console.log(poll);
     // console.log(pollId);
     // console.log(this.state.selectedPoll);
@@ -64,7 +61,7 @@ class App extends React.Component {
   getOpinion = (response) => {
     const { polls } = this.state;
     const poll = polls.find((p) => p.id === response.pollId);
-    const option = poll.opinions.find((o) => o.id === response.selectedOption);
+    const option = poll.options.find((o) => o.id === response.selectedOption);
 
     poll.totalVote++;
     option.vote++;
@@ -77,16 +74,28 @@ class App extends React.Component {
     poll.opinions.push(opinion);
     this.setState({ polls });
   };
-  
-  handleSearch = (searchTerm) => {};
+
+  handleSearch = (searchTerm) => {
+    this.setState({
+      searchTerm
+    });
+  };
+
+  performSearch = () => {
+    return this.state.polls.filter((poll) =>
+      poll.title.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+    );
+  };
 
   render() {
+    const polls = this.performSearch();
+    console.log(this.state)
     return (
       <Container className="my-5">
         <Row>
           <Col md={4}>
             <Sidebar
-              polls={this.state.polls}
+              polls={polls}
               searchTerm={this.state.searchTerm}
               handleSearch={this.handleSearch}
               selectPoll={this.selectPoll}
